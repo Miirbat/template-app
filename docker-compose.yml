@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    build:
+      context:
+        ./automation/postgres
+     environment:
+       - PGDATA=/pgtmpfs
+     tmpfs:
+       - /pgtmpfs
+  web:
+    build:
+      context: ./sun-sign-api
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/sun-sign-api/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  client:
+    build:
+      context: ./sun-sign-client
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "${PUBLIC_HTTPS_PORT:-443}:3001"
