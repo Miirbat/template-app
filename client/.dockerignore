@@ -1,0 +1,17 @@
+.env
+.git
+
+.DS_Store
+.dockerignore
+
+node_modules/
+build/
+coverage/
+
+# data
+*.csv
+*.tsv
+*.sql
+*.dump
+
+yarn-error.log
