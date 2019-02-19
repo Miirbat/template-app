@@ -10,17 +10,17 @@ services:
        - /pgtmpfs
   web:
     build:
-      context: ./sun-sign-api
+      context: ./api
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/sun-sign-api/myapp
+      - .:/api/myapp
     ports:
       - "3000:3000"
     depends_on:
       - db
   client:
     build:
-      context: ./sun-sign-client
+      context: ./client
     environment:
       - NODE_ENV=production
     ports:
