@@ -1,12 +1,12 @@
 import React from 'react';
 import '../stylesheets/BasicInfoCard.css';
 
-const BasicInfoCard = ( { account } ) =>
+const BasicInfoCard = ( { info } ) =>
   <div>
     <ul>
-      <li> { account.first_name } </li>
-      <li> { account.last_name } </li>
-      <li> { account.email } </li>
+      <li> { info.first_name } </li>
+      <li> { info.last_name } </li>
+      <li> { info.email } </li>
 
     </ul>
   </div>;

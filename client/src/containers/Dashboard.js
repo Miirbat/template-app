@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 import BasicInfoCard from '../components/BasicInfoCard.js';
+import { loadInfo } from '../actions/infoActions';
 
 import '../stylesheets/Buttons.css';
 import '../stylesheets/Dashboard.css';
@@ -15,22 +17,22 @@ class Dashboard extends Component {
       isLoading: true
     }
   }
+
   async componentDidMount() {
       this.setState({ isLoading: true });
-      if ( this.props.account.hasOwnProperty("id") ) {
-        this.setState({ isLoading: false });
-      }
+      await this.props.loadInfo();
+      this.setState({ isLoading: false });
     }
 
   render() {
-    const { account } = this.props;
+    const { info } = this.props.info;
     if (this.state.isLoading) {
       return <div> loading... </div>
     }
     return (
       <div className="dashboard">
         <div className="wrapper">
-          <BasicInfoCard account={ account } /> <br/>
+          <BasicInfoCard info={ info } /> <br/>
           <button type="button" className="button logout" onClick={() => this.props.history.push('/logout')}> Log Out </button>
         </div>
       </div>
@@ -40,8 +42,13 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    account: state.account.current
+    account: state.account.current,
+    info: state.info
   };
 };
 
-export default withRouter(connect(mapStateToProps)(Dashboard));
+const mapDispatchToProps = dispatch => bindActionCreators({
+  loadInfo
+}, dispatch);
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
