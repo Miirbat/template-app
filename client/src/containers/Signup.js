@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import '../stylesheets/Signup.css';
 
@@ -16,12 +16,17 @@ class Signup extends Component {
       last_name: '',
       email: '',
       password: '',
-      password_confirmation: ''
+      password_confirmation: '',
+      isLoading: true
     };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
+
+  componentDidMount() {
+      this.setState({ isLoading: false });
+    }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -35,7 +40,10 @@ class Signup extends Component {
 
   render() {
     const { email, password, password_confirmation, first_name, last_name } = this.state;
-
+    
+    if (this.state.isLoading) {
+      return <div> loading... </div>
+    }
     return (
       <div className="signup">
         <div className="formWrapper">

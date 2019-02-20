@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import '../stylesheets/Login.css';
+import '../stylesheets/Buttons.css';
+
 
 import { accountLogin } from '../actions/accountActions';
 
@@ -12,14 +14,19 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      email: 'rex@email.com',
-      password: 'password'
+      email: 'mirna@email.com',
+      password: 'password',
+      isLoading: true
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    
+
   }
+
+  componentDidMount() {
+      this.setState({ isLoading: false });
+    }
 
   async onSubmit(e) {
     e.preventDefault();
@@ -32,6 +39,9 @@ class Login extends Component {
   }
 
   render() {
+    if (this.state.isLoading) {
+      return <div> loading... </div>
+    }
     return (
       <div className="login">
         <div className="form">

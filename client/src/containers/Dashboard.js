@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import BasicInfoCard from '../components/BasicInfoCard.js';
 
-class Login extends Component {
+import '../stylesheets/Buttons.css';
+
+class Dashboard extends Component {
   constructor(props) {
     super(props);
 
@@ -13,22 +14,22 @@ class Login extends Component {
       isLoading: true
     }
   }
-
   async componentDidMount() {
       this.setState({ isLoading: true });
-      if (this.props.account.length == 1) {
+      if ( this.props.account.hasOwnProperty("id") ) {
         this.setState({ isLoading: false });
       }
     }
 
   render() {
-    const { account } = this.props.account;
+    const { account } = this.props;
     if (this.state.isLoading) {
       return <div> loading... </div>
     }
     return (
       <div className="dashboard">
-        <BasicInfoCard info={ account } />
+        <BasicInfoCard account={ account } /> <br/>
+        <button type="button" className="button logout" onClick={() => this.props.history.push('/logout')}> Log Out </button>
       </div>
     );
   }
@@ -36,8 +37,8 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    account: state.account.current,
+    account: state.account.current
   };
 };
 
-export default withRouter(connect(mapStateToProps)(Dashboard);
+export default withRouter(connect(mapStateToProps)(Dashboard));
