@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import BasicInfoCard from '../components/BasicInfoCard.js';
 
 import '../stylesheets/Buttons.css';
+import '../stylesheets/Dashboard.css';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -28,8 +29,10 @@ class Dashboard extends Component {
     }
     return (
       <div className="dashboard">
-        <BasicInfoCard account={ account } /> <br/>
-        <button type="button" className="button logout" onClick={() => this.props.history.push('/logout')}> Log Out </button>
+        <div className="wrapper">
+          <BasicInfoCard account={ account } /> <br/>
+          <button type="button" className="button logout" onClick={() => this.props.history.push('/logout')}> Log Out </button>
+        </div>
       </div>
     );
   }

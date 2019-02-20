@@ -11,3 +11,6 @@
   align-items: center;
   border-radius: 5px;
 }
+ul {
+  list-style-type: none;
+}
